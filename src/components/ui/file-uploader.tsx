@@ -20,8 +20,30 @@ export default function FileUploader({
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (files.find((file) => file.name === e.target.files![0].name)) return;
-        setFiles([...files, ...e.target.files!]);
-        setFileDropped(e.target.files![0]);
+
+        const uploadedFiles = Array.from(e.target.files!);
+
+        const allowedFiles = uploadedFiles.filter((file) =>
+            decompressionSwitch ? file.type === "application/octet-stream" : file.type === "text/plain"
+        );
+
+        const notAllowedFiles = uploadedFiles.filter((file) =>
+            !decompressionSwitch ? file.type === "application/octet-stream" : file.type === "text/plain"
+        );
+
+        notAllowedFiles.forEach((file) => {
+            throwToast(
+                "error",
+                `Ojo! El archivo ${file.name} no es un ${!decompressionSwitch ? "TXT" : "BIN"}`,
+                ""
+            );
+        });
+
+        allowedFiles.forEach((txtFile) => {
+            if (files.find((file) => file.name === txtFile.name)) return;
+            setFiles((prevState) => [...prevState, txtFile]);
+            setFileDropped(txtFile);
+        });
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -78,6 +100,7 @@ export default function FileUploader({
                     onChange={handleFileChange}
                     id="dropzone-file"
                     type="file"
+                    multiple
                     className="hidden"
                     accept={`${!decompressionSwitch ? ".txt" : ".bin"}`}
                 />
@@ -93,9 +116,9 @@ export default function FileUploader({
                         <path
                             d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13"
                             stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <g
                             className={`transition-all
@@ -106,20 +129,20 @@ export default function FileUploader({
                             <path
                                 d="M15 6L10 1L5 6"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                             <path
                                 d="M10 1V13"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                         </g>
                     </svg>
-                    <p className="mb-2 text-sm text-foreground/70">
+                    <p className="mb-2 text-sm text-foreground/70 text-center">
                         <span className="font-semibold">Hacé click acá para subir el archivo</span> o
                         arrastralo y soltalo
                     </p>

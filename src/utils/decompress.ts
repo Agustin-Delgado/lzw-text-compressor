@@ -1,7 +1,3 @@
-interface Dictionary {
-    [key: number]: string;
-}
-
 const decompress = (input: Uint32Array, onProgress: (progress: number) => void) => {
     const dictionary = new Map<number, string>();
 
