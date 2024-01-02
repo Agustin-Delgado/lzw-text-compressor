@@ -11,7 +11,7 @@ export default function Hero() {
                 <div className="relative flex gap-1 rounded-full px-3 py-1 text-sm leading-6 text-foreground/75 ring-1 ring-ring/10 hover:ring-ring/20">
                     Mirá el código en{" "}
                     <a
-                        href="#"
+                        href="https://github.com/Agustin-Delgado/lzw-text-compressor"
                         className="flex gap-1 items-center font-semibold text-secondary-foreground/90"
                     >
                         Github <GitHubLogoIcon /> <span aria-hidden="true">&rarr;</span>
