@@ -4,6 +4,7 @@ import SheetSide from "./sheet-side";
 import { switchDecompression, decompressionSwitch$ } from "@/state/decompression-switch";
 import { useObservable } from "rxjs-hooks";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Header() {
     const decompressionSwitch = useObservable(() => decompressionSwitch$);
@@ -56,6 +57,7 @@ export default function Header() {
                                 {decompressionSwitch ? "Comprimir" : "Descomprimir"}
                             </TooltipContent>
                         </Tooltip>
+                        <ModeToggle />
                     </div>
                 </div>
             </nav>

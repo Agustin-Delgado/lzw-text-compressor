@@ -83,10 +83,12 @@ export default function FileContainer({
     };
 
     const handleSuccessfulProcess = (file: File, fileData: Uint32Array) => {
-        const compressionPercentage = Number((((file.size - fileData.length) / file.size) * 100).toFixed());
+        const compressionPercentage = Number(
+            (((file.size - fileData.length * 4) / file.size) * 100).toFixed()
+        );
         const formattedFileName = file.name.split(".")[0];
 
-        if (!decompressionSwitch) saveHistory(file, fileData.length);
+        if (!decompressionSwitch) saveHistory(file, fileData.length * 4);
 
         downloadFile(fileData, decompressionSwitch ? `${formattedFileName}.txt` : `${formattedFileName}.bin`);
         handleDeleteFile(file.name);
