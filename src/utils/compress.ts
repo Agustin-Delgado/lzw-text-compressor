@@ -40,7 +40,7 @@ self.onmessage = (event) => {
         self.postMessage({ progress });
     });
 
-    if (fileData.length > data.length)
+    if (fileData.length * 4 > data.length)
         return self.postMessage({
             error: `Comprimimos el archivo ${fileName} pero pesa más que el original. Esto puede deberse a que el archivo no tiene un peso considerable o porque el algoritmo de compresión no es bueno`,
         });

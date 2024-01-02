@@ -38,7 +38,7 @@ export default function FileUploader({
         setDragging(false);
 
         const droppedFiles = e.dataTransfer.files;
-        const txtFiles = Array.from(droppedFiles).filter((file) =>
+        const allowedFiles = Array.from(droppedFiles).filter((file) =>
             decompressionSwitch ? file.type === "application/octet-stream" : file.type === "text/plain"
         );
         const notAllowedFiles = Array.from(droppedFiles).filter((file) =>
@@ -53,7 +53,7 @@ export default function FileUploader({
             );
         });
 
-        txtFiles.forEach((txtFile) => {
+        allowedFiles.forEach((txtFile) => {
             if (files.find((file) => file.name === txtFile.name)) return;
             setFiles((prevState) => [...prevState, txtFile]);
             setFileDropped(txtFile);
@@ -91,25 +91,34 @@ export default function FileUploader({
                         className="w-8 h-8 mb-4 text-foreground/70 overflow-visible"
                     >
                         <path
-                            d="M10.75 4L7.75 1M7.75 1L4.75 4M7.75 1V13.75"
+                            d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13"
                             stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <g
                             className={`transition-all
                             group-hover:transform group-hover:translate-y-[-4px] 
                             ${fileDropped ? "animate-arrow-flying" : ""}
                             ${dragging ? "transform translate-y-[-4px]" : ""}`}
-                        />
-                        <path
-                            d="M4.75 7H3.25C2.65326 7 2.08097 7.23705 1.65901 7.65901C1.23705 8.08097 1 8.65326 1 9.25V18.25C1 18.8467 1.23705 19.419 1.65901 19.841C2.08097 20.2629 2.65326 20.5 3.25 20.5H12.25C12.8467 20.5 13.419 20.2629 13.841 19.841C14.2629 19.419 14.5 18.8467 14.5 18.25V9.25C14.5 8.65326 14.2629 8.08097 13.841 7.65901C13.419 7.23705 12.8467 7 12.25 7H10.75"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                        />
+                        >
+                            <path
+                                d="M15 6L10 1L5 6"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M10 1V13"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </g>
                     </svg>
-
                     <p className="mb-2 text-sm text-foreground/70">
                         <span className="font-semibold">Hacé click acá para subir el archivo</span> o
                         arrastralo y soltalo
