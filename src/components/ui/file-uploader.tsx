@@ -91,7 +91,7 @@ export default function FileUploader({
         <div className="flex items-center flex-col justify-center w-full mt-10 z-10">
             <label
                 htmlFor="dropzone-file"
-                className={`flex overflow-hidden mb-4 over border-dashed group flex-col z-10 items-center justify-center w-full border border-foreground/40 rounded-lg cursor-pointer bg-border/15 hover:bg-border/25`}
+                className={`flex overflow-hidden mb-4 p-2 over border-dashed group flex-col z-10 items-center justify-center w-full border border-foreground/40 rounded-lg cursor-pointer bg-border/15 hover:bg-border/25`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -120,27 +120,17 @@ export default function FileUploader({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         />
-                        <g
+                        <path
                             className={`transition-all
-                            group-hover:transform group-hover:translate-y-[-4px] 
-                            ${fileDropped ? "animate-arrow-flying" : ""}
-                            ${dragging ? "transform translate-y-[-4px]" : ""}`}
-                        >
-                            <path
-                                d="M15 6L10 1L5 6"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                            <path
-                                d="M10 1V13"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </g>
+                        group-hover:transform group-hover:translate-y-[-4px] 
+                        ${fileDropped ? "animate-arrow-flying" : ""}
+                        ${dragging ? "transform translate-y-[-4px]" : ""}`}
+                            d="M15 6L10 1M10 1L5 6M10 1V13"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
                     </svg>
                     <p className="mb-2 text-sm text-foreground/70 text-center">
                         <span className="font-semibold">Hacé click acá para subir el archivo</span> o
